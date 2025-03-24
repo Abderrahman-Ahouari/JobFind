@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Http\Controllers;
 
-use App\Models\Jobpost;
+use Illuminate\Http\Request;
+use App\Repositories\JobpostRepository;
 
-class JobPostRepository implements JobPostRepositoryInterface
+class JobpostController extends Controller
 {
+    
     public function getAll(){
-        return Jobpost::all();
+        
     }
 
     public function find($id)
@@ -30,5 +32,6 @@ class JobPostRepository implements JobPostRepositoryInterface
     {
         JobPost::destroy($id);
     }
+
 
 }
