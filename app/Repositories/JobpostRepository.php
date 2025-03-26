@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\Jobpost;
+use App\Repositories\Interfaces\JobPostRepositoryInterface;
+
 
 class JobPostRepository implements JobPostRepositoryInterface
 {
@@ -12,23 +14,23 @@ class JobPostRepository implements JobPostRepositoryInterface
 
     public function find($id)
     {
-        return JobPost::findOrFail($id);
+        return Jobpost::findOrFail($id);
     }
 
     public function create(array $data)
     {
-        return JobPost::create($data);
+        Jobpost::create($data);
     }
 
     public function update($id, array $data)
     {
-        $jobPost = JobPost::findOrFail($id);
-        $jobPost->update($data);
+        $jobPost = Jobpost::findOrFail($id);
+        $Jobpost->update($data);
     }
 
     public function delete($id)
-    {
-        JobPost::destroy($id);
+    {                               
+        Jobpost::destroy($id);
     }
 
 }

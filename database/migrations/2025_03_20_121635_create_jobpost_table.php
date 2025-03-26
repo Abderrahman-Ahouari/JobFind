@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jobpost', function (Blueprint $table) {
+        Schema::create('jobposts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('recruiter_id')->constrained('users')->onDelete('cascade');
             $table->string('title');
             $table->text('description');
             $table->string('location');
             $table->decimal('salary')->nullable();
-            $table->string('image');
+            $table->text('image');
             $table->timestamps();
         });
     }

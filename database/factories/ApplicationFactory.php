@@ -24,9 +24,9 @@ class ApplicationFactory extends Factory
     public function definition(): array
     {
         return [
-            'candidate_id' => User::where('role', 'candidate')->inRandomOrder()->first()->id,
-            'jobpost_id' => JobPost::inRandomOrder()->first()->id,
-            'resume' => 'uploads/resumes/' . $this->faker->uuid . '.pdf',
+            'candidate_id' => User::where('role', 'candidate')->inRandomOrder()->first()->id ?? User::factory(),
+            'jobpost_id' => JobPost::inRandomOrder()->first()->id ?? JobPost::factory(),
+            'resume' => $this->faker->filePath(),
             'cover_letter' => $this->faker->paragraph,
             'status' => $this->faker->randomElement(['pending', 'accepted', 'rejected']),
         ];

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Jobpost extends Model
 {
     use HasFactory;
-      protected $fillable = ['recruiter_id', 'title', 'description', 'location', 'salary'];
+      protected $fillable = ['recruiter_id', 'title', 'description', 'location', 'salary', 'image'];
 
     public function recruiter()
     {
@@ -20,3 +20,4 @@ class Jobpost extends Model
         return $this->hasMany(Application::class);
     }
 }
+ 

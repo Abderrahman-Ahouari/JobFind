@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 
 
@@ -21,6 +23,7 @@ class AuthController extends Controller
     ]);
     // Generate JWT token
     $token = auth('api')->login($user);
+    
     // Return user data and token
     return response()->json([
     'status' => 'success',
@@ -58,12 +61,14 @@ return response()->json([
     'status' => 'success',
     'user' => $user,
     'authorization' => [
-        'token' => $token,
-        'type' => 'bearer',
+    'token' => $token,
+    'type' => 'bearer',
     ]
 ]);
 
 
 }
+
+
 
 }

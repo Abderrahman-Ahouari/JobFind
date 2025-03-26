@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\JobPost;
+use App\Models\Jobpost;
 
 class JobpostSeeder extends Seeder
 {
@@ -13,6 +13,6 @@ class JobpostSeeder extends Seeder
      */
     public function run(): void
     {
-        JobPost::factory(10)->create();
+        Jobpost::factory()->count(10)->create();
     }
 }

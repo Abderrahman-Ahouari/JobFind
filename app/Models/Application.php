@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Application extends Model
 {
     use HasFactory;
-    protected $fillable = ['candidate_id', 'job_post_id', 'resume', 'cover_letter', 'status'];
+    protected $fillable = ['candidate_id', 'jobpost_id', 'resume', 'cover_letter', 'status'];
 
     public function candidate()
     {
