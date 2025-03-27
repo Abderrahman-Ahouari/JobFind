@@ -25,19 +25,41 @@ class JobpostController extends Controller
         return response()->json($this->jobPostRepository->find($id));
     }
 
+    // public function create(Request $request)
+    // {
+    //     $validated = $request->validate([
+    //         'title' => 'required|string',
+    //         'description' => 'required|string',
+    //         'location' => 'required|string',
+    //         'salary' => 'required',
+    //         'image' => 'nullable',
+    //     ]);
+    //     // return $validated;
+    //     $validated['recruiter_id'] = Auth::id();
+    //     $this->jobPostRepository->create($validated);
+    // }
+
     public function create(Request $request)
     {
+        // Validate the incoming request data
         $validated = $request->validate([
             'title' => 'required|string',
             'description' => 'required|string',
             'location' => 'required|string',
-            'salary' => 'required',
-            'image' => 'nullable',
+            'salary' => 'required|numeric',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', 
         ]);
-        // return $validated;
+    
         $validated['recruiter_id'] = Auth::id();
+    
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('jobpost_photos', 'public');
+            $validated['image'] = $imagePath;
+        }
+    
         $this->jobPostRepository->create($validated);
     }
+    
 
     public function update($id, Request $request)
     {

@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Application;
 use App\Repositories\Interfaces\ApplicationRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
 
 class ApplicationRepository implements ApplicationRepositoryInterface  
@@ -22,15 +23,13 @@ class ApplicationRepository implements ApplicationRepositoryInterface
         return Application::create($data);
     }
 
-    public function update($id, array $data)
-    {
-        $Application = Application::findOrFail($id);
-        $Application->update($data);
-    }
-
     public function delete($id)
     {
         Application::destroy($id);
+    }
+
+    public function getUserApplications($id){
+        return DB::table('applications')->where('candidate_id',$id)->get();
     }
 
 }

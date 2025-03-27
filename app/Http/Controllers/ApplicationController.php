@@ -51,6 +51,10 @@ class ApplicationController extends Controller
         $this->ApplicationRepository->delete($id);
     }
 
+    public function getUserApplications($id){ 
+        return response()->json($this->ApplicationRepository->getUserApplications($id));
+    }
+
 
 }
 

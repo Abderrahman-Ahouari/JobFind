@@ -22,27 +22,31 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 Route::post('/register' , [AuthController::class , 'register']);
 Route::post('/login' , [AuthController::class , 'login']);
 Route::post('/logout' , [AuthController::class , 'logout']);
 
-
+ 
 Route::group(['middleware'=>['auth:api']],function(){
 
-Route::get('jobposts', [JobpostController::class, 'getAll']); 
-Route::get('jobposts/{id}', [JobpostController::class, 'find']);  
-Route::post('jobposts', [JobpostController::class, 'create']);  
-Route::put('jobposts/{id}', [JobpostController::class, 'update']); 
-Route::delete('jobposts/{id}', [JobpostController::class, 'delete']);  
+    Route::get('jobposts', [JobpostController::class, 'getAll']); 
+    Route::get('jobposts/{id}', [JobpostController::class, 'find']);
+    
+    Route::middleware(['auth', 'role:recruiter'])->group(function () { 
+        Route::post('jobposts', [JobpostController::class, 'create']);  
+        Route::put('jobposts/{id}', [JobpostController::class, 'update']); 
+        Route::delete('jobposts/{id}', [JobpostController::class, 'delete']);  
+    }); 
 
-
-Route::get('applications', [ApplicationController::class, 'getAll']); 
-Route::get('applications/{id}', [ApplicationController::class, 'find']); 
-Route::post('applications', [ApplicationController::class, 'create']); 
-Route::delete('applications/{id}', [ApplicationController::class, 'delete']); 
-
+    Route::middleware(['auth', 'role:candidate'])->group(function () {
+        Route::post('applications', [ApplicationController::class, 'create']); 
+        Route::delete('applications/{id}', [ApplicationController::class, 'delete']); 
+    }); 
+    
+    Route::middleware(['auth', 'role:admin'])->group(function () {
+        Route::get('applications', [ApplicationController::class, 'getAll']); 
+        Route::get('applications/{id}', [ApplicationController::class, 'find']); 
+    }); 
+    
 });
